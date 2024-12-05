@@ -1,7 +1,7 @@
 package com.ohlottery.controller;
 
-import com.ohlottery.dto.Lottery645Dto;
-import com.ohlottery.entity.Lottery645Entity;
+import com.ohlottery.dto.Lottery720Dto;
+import com.ohlottery.entity.Lottery720Entity;
 import com.ohlottery.service.LotteryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -13,28 +13,24 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("lottery645")
+@RequestMapping("lottery720")
 @RequiredArgsConstructor
-public class Lottery645Controller {
+public class Lottery720Controller {
 
     private final LotteryService lotteryService;
 
     @GetMapping("/{round}")
-    public ResponseEntity<?> getLotteryNumber(@PathVariable("round") String round) {
-        long requestRound;
-        try {
-            requestRound = Long.parseLong(round);
-        } catch (NumberFormatException e) {
-            return ResponseEntity.badRequest().build();
-        }
+    public ResponseEntity<?> getLotteryNumber(@PathVariable("round") Long requestRound) {
+        if(requestRound == null) return ResponseEntity.badRequest().build();
 
-        Optional<Lottery645Entity> roundResult
-                = lotteryService.getLottery645Result(requestRound);
+        Optional<Lottery720Entity> roundResult
+                = lotteryService.getLottery720Result(requestRound);
 
         if (roundResult.isEmpty()) return ResponseEntity.badRequest().build();
 
-        Lottery645Entity resultEntity = roundResult.get();
-        Lottery645Dto resultDto = new Lottery645Dto(resultEntity);
+        Lottery720Entity resultEntity = roundResult.get();
+        Lottery720Dto resultDto = new Lottery720Dto(resultEntity);
         return ResponseEntity.ok(resultDto);
     }
+
 }
