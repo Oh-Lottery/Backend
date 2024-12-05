@@ -1,11 +1,13 @@
 package com.ohlottery.dto;
 
 import com.ohlottery.entity.Lottery720Entity;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.Date;
 
 @Data
+@Schema(description = "연금복권 정보")
 public class Lottery720Dto {
 
     public Lottery720Dto(Lottery720Entity entity) {
@@ -16,11 +18,18 @@ public class Lottery720Dto {
         rankNo = entity.getRankNo();
     }
 
-    private long round;// 회차
+    @Schema(description = "회차 정보", example = "240")
+    private long round;
 
-    private Date drawDate;// 추첨 날짜
+    @Schema(description = "추첨 날짜", example = "2024-12-05")
+    private Date drawDate;
 
-    private short rankWinNum;// 등수
-    private byte rankClass;// 조 번호
-    private int rankNo;// 당첨 번호
+    @Schema(description = "등수", example = "1")
+    private short rankWinNum;
+
+    @Schema(description = "당첨 조 번호", example = "4")
+    private int rankClass;
+
+    @Schema(description = "당첨 번호", example = "446648")
+    private int rankNo;
 }
