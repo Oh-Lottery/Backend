@@ -2,18 +2,24 @@ package com.ohlottery.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
 @Getter
+@Setter //builder 사용 안하는 대신 추가
+@NoArgsConstructor
 public class Lottery645Entity {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // @GeneratedValue(strategy = GenerationType.IDENTITY) 제거 -> 이것도 상범님과 논의
+    @Id
     private long round;
 
-    @Temporal(TemporalType.DATE)
-    private Date drawDate;
+    // @Temporal(TemporalType.DATE) 제거 -> 이것도 상범님과 논의
+    private LocalDate drawDate; // 상범님과 논의 예정
 
     private byte drawNo1;
     private byte drawNo2;

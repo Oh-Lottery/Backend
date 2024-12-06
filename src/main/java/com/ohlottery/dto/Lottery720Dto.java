@@ -4,7 +4,7 @@ import com.ohlottery.entity.Lottery720Entity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 @Schema(description = "연금복권 정보")
@@ -12,7 +12,7 @@ public class Lottery720Dto {
 
     public Lottery720Dto(Lottery720Entity entity) {
         round = entity.getRound();
-        drawDate = entity.getDrawDate();
+        drawDate = entity.getDrawDate(); // 마이그레이션 해줌
         rankWinNum = entity.getRankWinNum();
         rankClass = entity.getRankClass();
         rankNo = entity.getRankNo();
@@ -22,7 +22,7 @@ public class Lottery720Dto {
     private long round;
 
     @Schema(description = "추첨 날짜", example = "2024-12-05")
-    private Date drawDate;
+    private LocalDate drawDate;
 
     @Schema(description = "등수", example = "1")
     private short rankWinNum;

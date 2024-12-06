@@ -4,7 +4,7 @@ import com.ohlottery.entity.Lottery645Entity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 @Schema(description = "6/45 로또 정보")
@@ -12,7 +12,7 @@ public class Lottery645Dto {
 
     public Lottery645Dto(Lottery645Entity entity) {
         round = entity.getRound();
-        drawDate = entity.getDrawDate();
+        drawDate = entity.getDrawDate(); // 마이그레이션 해줌
         drawNo1 = entity.getDrawNo1();
         drawNo2 = entity.getDrawNo2();
         drawNo3 = entity.getDrawNo3();
@@ -29,7 +29,7 @@ public class Lottery645Dto {
     private long round;
 
     @Schema(description = "추첨 날짜", example = "2024-11-30")
-    private Date drawDate;
+    private LocalDate drawDate;
 
     @Schema(description = "첫번째 번호", example = "3")
     private int drawNo1;
