@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface Lottery645Repository extends JpaRepository<Lottery645Entity, Long> {
+    boolean existsByRound(long round);
 }
