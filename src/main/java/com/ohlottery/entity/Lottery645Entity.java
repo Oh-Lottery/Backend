@@ -3,7 +3,7 @@ package com.ohlottery.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -12,8 +12,7 @@ public class Lottery645Entity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long round;
 
-    @Temporal(TemporalType.DATE)
-    private Date drawDate;
+    private LocalDate drawDate;
 
     private byte drawNo1;
     private byte drawNo2;

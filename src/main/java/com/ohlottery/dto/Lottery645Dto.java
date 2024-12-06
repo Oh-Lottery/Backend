@@ -1,35 +1,21 @@
 package com.ohlottery.dto;
 
-import com.ohlottery.entity.Lottery645Entity;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Builder;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
+@Builder
 @Schema(description = "6/45 로또 정보")
 public class Lottery645Dto {
-
-    public Lottery645Dto(Lottery645Entity entity) {
-        round = entity.getRound();
-        drawDate = entity.getDrawDate();
-        drawNo1 = entity.getDrawNo1();
-        drawNo2 = entity.getDrawNo2();
-        drawNo3 = entity.getDrawNo3();
-        drawNo4 = entity.getDrawNo4();
-        drawNo5 = entity.getDrawNo5();
-        drawNo6 = entity.getDrawNo6();
-        bonusNo = entity.getBonusNo();
-        firstAccumulateAmount = entity.getFirstAccumulateAmount();
-        firstPrizeWinnerCount = entity.getFirstPrizeWinnerCount();
-        totalSellAmount = entity.getTotalSellAmount();
-    }
 
     @Schema(description = "회차 정보", example = "1148")
     private long round;
 
     @Schema(description = "추첨 날짜", example = "2024-11-30")
-    private Date drawDate;
+    private LocalDate drawDate;
 
     @Schema(description = "첫번째 번호", example = "3")
     private int drawNo1;
