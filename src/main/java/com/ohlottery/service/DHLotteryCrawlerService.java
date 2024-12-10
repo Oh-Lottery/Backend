@@ -18,9 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 @Slf4j
@@ -124,21 +121,20 @@ public class DHLotteryCrawlerService {
     }
 
     private Lottery645Entity convertToEntity(Lottery645Dto dto) {
-        return Lottery645Entity.builder()
-                .round(dto.getRound())
-                .drawDate(dto.getDrawDate())
-                .drawNo1((byte) dto.getDrawNo1())
-                .drawNo2((byte) dto.getDrawNo2())
-                .drawNo3((byte) dto.getDrawNo3())
-                .drawNo4((byte) dto.getDrawNo4())
-                .drawNo5((byte) dto.getDrawNo5())
-                .drawNo6((byte) dto.getDrawNo6())
-                .bonusNo((byte) dto.getBonusNo())
-                .firstAccumulateAmount(dto.getFirstAccumulateAmount())
-                .firstPrizeWinnerCount(dto.getFirstPrizeWinnerCount())
-                .firstWinAmount(dto.getFirstWinAmount())
-                .totalSellAmount(dto.getTotalSellAmount())
-                .build();
+        return new Lottery645Entity(
+                dto.getRound(),
+                dto.getDrawDate(),
+                (byte) dto.getDrawNo1(),
+                (byte) dto.getDrawNo2(),
+                (byte) dto.getDrawNo3(),
+                (byte) dto.getDrawNo4(),
+                (byte) dto.getDrawNo5(),
+                (byte) dto.getDrawNo6(),
+                (byte) dto.getBonusNo(),
+                dto.getFirstAccumulateAmount(),
+                dto.getFirstPrizeWinnerCount(),
+                dto.getFirstWinAmount(),
+                dto.getTotalSellAmount());
     }
 
     private long parseLongOrDefault(String input, long defaultValue) {
@@ -224,13 +220,13 @@ public class DHLotteryCrawlerService {
     }
 
     private Lottery720Entity convertToEntityUsingBuilder(Lottery720Dto dto) {
-        return Lottery720Entity.builder()
-                .round(dto.getRound())
-                .drawDate(dto.getDrawDate())
-                .rankWinNum(dto.getRankWinNum())
-                .rankClass((byte) dto.getRankClass())
-                .rankNo(dto.getRankNo())
-                .build();
+        return new Lottery720Entity(
+                dto.getRound(),
+                dto.getDrawDate(),
+                dto.getRankWinNum(),
+                (byte) dto.getRankClass(),
+                dto.getRankNo()
+        );
     }
 
     private int parseIntOrDefault(String input, int defaultValue) {
