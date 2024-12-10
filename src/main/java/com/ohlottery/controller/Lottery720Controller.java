@@ -48,13 +48,13 @@ public class Lottery720Controller {
         if (roundResult.isEmpty()) return ResponseEntity.notFound().build();
 
         Lottery720Entity resultEntity = roundResult.get();
-        Lottery720Dto resultDto = Lottery720Dto.builder()
-                .round(resultEntity.getRound())
-                .drawDate(resultEntity.getDrawDate())
-                .rankClass(resultEntity.getRankClass())
-                .rankNo(resultEntity.getRankNo())
-                .rankWinNum(resultEntity.getRankWinNum())
-                .build();
+        Lottery720Dto resultDto = new Lottery720Dto(
+                resultEntity.getRound(),
+                resultEntity.getDrawDate(),
+                resultEntity.getRankWinNum(),
+                resultEntity.getRankClass(),
+                resultEntity.getRankNo()
+        );
         return ResponseEntity.ok(resultDto);
     }
 

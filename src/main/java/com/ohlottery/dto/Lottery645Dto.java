@@ -1,13 +1,13 @@
 package com.ohlottery.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.time.LocalDate;
 
 @Data
-@Builder
+@AllArgsConstructor
 @Schema(description = "6/45 로또 정보")
 public class Lottery645Dto {
 

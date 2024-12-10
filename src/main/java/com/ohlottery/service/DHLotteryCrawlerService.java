@@ -6,7 +6,6 @@ import com.ohlottery.entity.Lottery645Entity;
 import com.ohlottery.entity.Lottery720Entity;
 import com.ohlottery.repository.Lottery645Repository;
 import com.ohlottery.repository.Lottery720Repository;
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
@@ -21,7 +20,6 @@ import java.time.format.DateTimeFormatter;
 
 @Service
 @Slf4j
-@Builder
 @RequiredArgsConstructor
 public class DHLotteryCrawlerService {
 
@@ -103,21 +101,8 @@ public class DHLotteryCrawlerService {
                 document.select(".total strong").text(), 0L);
         log.info("1등 관련 자료 파싱 완료");
 
-        return Lottery645Dto.builder()
-                .round(round)
-                .drawDate(drawDate)
-                .drawNo1(drawNo1)
-                .drawNo2(drawNo2)
-                .drawNo3(drawNo3)
-                .drawNo4(drawNo4)
-                .drawNo5(drawNo5)
-                .drawNo6(drawNo6)
-                .bonusNo(bonusNo)
-                .firstAccumulateAmount(firstAccumulateAmount)
-                .firstPrizeWinnerCount(firstPrizeWinnerCount)
-                .firstWinAmount(firstWinAmount)
-                .totalSellAmount(totalSellAmount)
-                .build();
+        return new Lottery645Dto(round, drawDate, drawNo1, drawNo2, drawNo3, drawNo4, drawNo5, drawNo6, bonusNo,
+                firstAccumulateAmount, firstPrizeWinnerCount, firstWinAmount, totalSellAmount);
     }
 
     private Lottery645Entity convertToEntity(Lottery645Dto dto) {
@@ -210,20 +195,14 @@ public class DHLotteryCrawlerService {
             throw new IllegalArgumentException("당첨 데이터에 숫자로 변환할 수 없는 값이 포함되어 있습니다.");
         }
 
-        return Lottery720Dto.builder()
-                .round(round)
-                .drawDate(drawDate)
-                .rankWinNum((short) rankWinNum)
-                .rankClass((byte) rankClass)
-                .rankNo(rankNo)
-                .build();
+        return new Lottery720Dto(round, drawDate, (short) rankWinNum, (byte) rankClass, rankNo);
     }
 
     private Lottery720Entity convertToEntityUsingBuilder(Lottery720Dto dto) {
         return new Lottery720Entity(
                 dto.getRound(),
                 dto.getDrawDate(),
-                dto.getRankWinNum(),
+                (byte) dto.getRankWinNum(),
                 (byte) dto.getRankClass(),
                 dto.getRankNo()
         );
