@@ -1,15 +1,17 @@
 package com.ohlottery.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.*;
 
 import java.time.LocalDate;
 
 @Entity
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Lottery645Entity {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private long round;
 
     private LocalDate drawDate;

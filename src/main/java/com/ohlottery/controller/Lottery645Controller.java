@@ -54,21 +54,21 @@ public class Lottery645Controller {
         if (roundResult.isEmpty()) return ResponseEntity.notFound().build();
 
         Lottery645Entity resultEntity = roundResult.get();
-        Lottery645Dto resultDto = Lottery645Dto.builder()
-                .round(resultEntity.getRound())
-                .bonusNo(resultEntity.getBonusNo())
-                .drawDate(resultEntity.getDrawDate())
-                .drawNo1(resultEntity.getDrawNo1())
-                .drawNo2(resultEntity.getDrawNo2())
-                .drawNo3(resultEntity.getDrawNo3())
-                .drawNo4(resultEntity.getDrawNo4())
-                .drawNo5(resultEntity.getDrawNo5())
-                .drawNo6(resultEntity.getDrawNo6())
-                .firstAccumulateAmount(resultEntity.getFirstAccumulateAmount())
-                .firstPrizeWinnerCount(resultEntity.getFirstPrizeWinnerCount())
-                .totalSellAmount(resultEntity.getTotalSellAmount())
-                .firstWinAmount(resultEntity.getFirstWinAmount())
-                .build();
+        Lottery645Dto resultDto = new Lottery645Dto(
+                resultEntity.getRound(),
+                resultEntity.getDrawDate(),
+                resultEntity.getDrawNo1(),
+                resultEntity.getDrawNo2(),
+                resultEntity.getDrawNo3(),
+                resultEntity.getDrawNo4(),
+                resultEntity.getDrawNo5(),
+                resultEntity.getDrawNo6(),
+                resultEntity.getBonusNo(),
+                resultEntity.getFirstAccumulateAmount(),
+                resultEntity.getFirstPrizeWinnerCount(),
+                resultEntity.getFirstWinAmount(),
+                resultEntity.getTotalSellAmount()
+        );
         return ResponseEntity.ok(resultDto);
     }
 }
