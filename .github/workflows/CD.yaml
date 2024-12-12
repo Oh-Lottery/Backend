@@ -52,7 +52,7 @@ jobs:
       - name: Pull from docker hub and deploy
         uses: appleboy/ssh-action@master
         with:
-          username: ${{ REMOTE_USERNAME }}
+          username: ${{ secrets.REMOTE_USERNAME }}
           host: ${{ secrets.REMOTE_HOST }}
           key: ${{ secrets.REMOTE_KEY }}
           script: |
