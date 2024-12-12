@@ -1,14 +1,46 @@
 services:
+  backend:
+    image: ${DOCKER_BACKEND_IMAGE}
+    environment:
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+      SPRING_DATA_REDIS_HOST: ${SPRING_DATA_REDIS_HOST}
+      SPRING_DATA_REDIS_PORT: ${SPRING_DATA_REDIS_PORT}
+      SPRING_DATA_REDIS_CLIENT_NAME: ${SPRING_DATA_REDIS_CLIENT_NAME}
+      SPRING_DATA_REDIS_PASSWORD: ${SPRING_DATA_REDIS_PASSWORD}
+    ports:
+      - '8080:8080'
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      - db
+
   mysql:
     image: 'mysql:latest'
     environment:
-      - 'MYSQL_DATABASE=mydatabase'
-      - 'MYSQL_PASSWORD=secret'
-      - 'MYSQL_ROOT_PASSWORD=verysecret'
-      - 'MYSQL_USER=myuser'
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - mysql_data:/var/lib/mysql
     ports:
-      - '3306'
+      - '3306:3306'
+    networks:
+      - db
+
   redis:
     image: 'redis:latest'
     ports:
-      - '6379'
+      - '6379:6379'
+    volumes:
+      - redis_data:/usr/local/etc/redis
+    networks:
+      - db
+
+networks:
+  db:
+
+volumes:
+  mysql_data:
+  redis_data:
