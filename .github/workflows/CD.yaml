@@ -33,7 +33,7 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:${{ secrets.DOCKER_IMAGE }}
-          cache-from: type=gha # gha=Github Actions
+          cache-from: type=gha # gha = Github Actions
           cache-to: type=gha,mode=max
 
       - name: Pull from docker hub and deploy
