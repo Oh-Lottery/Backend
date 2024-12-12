@@ -40,7 +40,7 @@ jobs:
           host: ${{ secrets.REMOTE_HOST }}
           key: ${{ secrets.REMOTE_KEY }}
           script: |
-            cd /Backend
+            cd /home/***/Backend
             git pull origin main
             sudo docker compose down
             sudo docker compose up -d
