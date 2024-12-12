@@ -16,7 +16,7 @@ public class Lottery720Entity {
 
     private LocalDate drawDate;// 추첨 날짜
 
-    private byte rankWinNum;// 등수
     private byte rankClass;// 조 번호
     private int rankNo;// 당첨 번호
+    private int bonusNo;// 보너스 번호
 }

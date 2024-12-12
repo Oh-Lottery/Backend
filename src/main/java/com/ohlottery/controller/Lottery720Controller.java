@@ -51,9 +51,9 @@ public class Lottery720Controller {
         Lottery720Dto resultDto = new Lottery720Dto(
                 resultEntity.getRound(),
                 resultEntity.getDrawDate(),
-                resultEntity.getRankWinNum(),
                 resultEntity.getRankClass(),
-                resultEntity.getRankNo()
+                resultEntity.getRankNo(),
+                resultEntity.getBonusNo()
         );
         return ResponseEntity.ok(resultDto);
     }
