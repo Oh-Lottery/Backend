@@ -17,12 +17,12 @@ public class Lottery720Dto {
     @Schema(description = "추첨 날짜", example = "2024-12-05")
     private LocalDate drawDate;
 
-    @Schema(description = "등수", example = "1")
-    private int rankWinNum;
-
     @Schema(description = "당첨 조 번호", example = "4")
     private int rankClass;
 
     @Schema(description = "당첨 번호", example = "446648")
     private int rankNo;
+
+    @Schema(description = "당첨 번호", example = "761555")
+    private int bonusNo;
 }
