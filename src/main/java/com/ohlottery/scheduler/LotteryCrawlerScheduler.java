@@ -23,7 +23,8 @@ public class LotteryCrawlerScheduler {
         try {
             int latestRound = getLatestLottery645Round();
             log.info("가져온 최신 6/45 로또 회차: {}", latestRound);
-            scheduleRetryFetch(() -> lotteryCrawlerService.fetchLottery645Data(latestRound), "6/45", latestRound);
+            scheduleRetryFetch(()
+                    -> lotteryCrawlerService.fetchLottery645Data(latestRound), "6/45", latestRound);
         } catch (Exception e) {
             log.error("fetchLottery645Data 실행 중 에러 발생", e);
         }
@@ -35,7 +36,8 @@ public class LotteryCrawlerScheduler {
         try {
             int latestRound = getLatestLottery720Round();
             log.info("가져온 최신 720 로또 회차: {}", latestRound);
-            scheduleRetryFetch(() -> lotteryCrawlerService.fetchLottery720Data(latestRound), "720", latestRound);
+            scheduleRetryFetch(()
+                    -> lotteryCrawlerService.fetchLottery720Data(latestRound), "720", latestRound);
         } catch (Exception e) {
             log.error("fetchLottery720Data 실행 중 에러 발생", e);
         }

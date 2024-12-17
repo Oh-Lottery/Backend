@@ -1,9 +1,12 @@
 package com.ohlottery.entity;
 
+import com.ohlottery.entity.middle.Lottery645EntityStore;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -31,4 +34,7 @@ public class Lottery645Entity {
     private long firstWinAmount;
     // 총 판매금액
     private long totalSellAmount;
+
+    @OneToMany(mappedBy = "lotteryEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<Lottery645EntityStore> storeList = new ArrayList<>();
 }

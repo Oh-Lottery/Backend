@@ -1,6 +1,7 @@
 package com.ohlottery.service;
 
 import com.ohlottery.dto.Lottery645Dto;
+import com.ohlottery.dto.Lottery720Dto;
 import com.ohlottery.entity.Lottery645Entity;
 import com.ohlottery.entity.Lottery720Entity;
 import com.ohlottery.repository.Lottery645Repository;
@@ -12,7 +13,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class LotteryService {
+public class LotteryAIService {
 
     private final Lottery645Repository lottery645Repository;
     private final Lottery720Repository lottery720Repository;
@@ -25,8 +26,20 @@ public class LotteryService {
         return lottery720Repository.findById(round);
     }
 
-    public Lottery645Dto getPredict645(long rank){
-        
+    public Lottery645Dto getPredict645(long round){
+        return null;
+    }
+
+    public Lottery720Dto getPredict720(long round){
+        return null;
+    }
+
+    public String getTrend645(long round){
+        return null;
+    }
+
+    public String getTrend720(long round){
+        return null;
     }
 
 }

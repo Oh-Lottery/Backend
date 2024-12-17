@@ -2,7 +2,7 @@ package com.ohlottery.controller;
 
 import com.ohlottery.dto.Lottery645Dto;
 import com.ohlottery.dto.Lottery720Dto;
-import com.ohlottery.service.LotteryService;
+import com.ohlottery.service.LotteryAIService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,29 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/lottery/ai")
 public class LotteryAIController {
 
-    private final LotteryService lotteryService;
+    private final LotteryAIService lotteryAIService;
 
     @GetMapping("/predict/645/{round}")
     public ResponseEntity<Lottery645Dto> get645Predict(
             @PathVariable long round
     ) {
-        return ResponseEntity.ok(
-                new Lottery645Dto(
-                        0,
-                        null,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        0
-                )
-        );
+        return null;
     }
 
     @GetMapping("/statistic/645")
@@ -54,15 +38,7 @@ public class LotteryAIController {
     public ResponseEntity<Lottery720Dto> get720Predict(
             @PathVariable long round
     ) {
-        return ResponseEntity.ok(
-                new Lottery720Dto(
-                        0,
-                        null,
-                        0,
-                        0,
-                        0
-                )
-        );
+        return null;
     }
 
     @GetMapping("/statistic/720")
