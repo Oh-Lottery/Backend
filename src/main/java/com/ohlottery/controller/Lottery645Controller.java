@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("lottery645/round")
+@RequestMapping("lottery645")
 @RequiredArgsConstructor
 
 @Tag(name = "Lottery 6/45 Controller", description = "6/45 당첨 정보 API")
@@ -28,7 +28,7 @@ public class Lottery645Controller {
 
     private final LotteryService lotteryService;
 
-    @GetMapping("/{round}")
+    @GetMapping("/round/{round}")
 
     @Operation(summary = "6/45로또 데이터 조회", description = "해당 회차 6/45 당첨 정보를 데이터베이스에서 조회")
     @ApiResponses(value ={

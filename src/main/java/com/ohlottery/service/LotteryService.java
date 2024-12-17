@@ -1,5 +1,6 @@
 package com.ohlottery.service;
 
+import com.ohlottery.dto.Lottery645Dto;
 import com.ohlottery.entity.Lottery645Entity;
 import com.ohlottery.entity.Lottery720Entity;
 import com.ohlottery.repository.Lottery645Repository;
@@ -22,6 +23,10 @@ public class LotteryService {
 
     public Optional<Lottery720Entity> getLottery720Result(long round){
         return lottery720Repository.findById(round);
+    }
+
+    public Lottery645Dto getPredict645(long rank){
+        
     }
 
 }
