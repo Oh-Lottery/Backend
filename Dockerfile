@@ -24,15 +24,11 @@ RUN gradle build --no-daemon
 FROM openjdk:17.0.1-jdk-slim
 
 # debian 기반
-RUN apt update && apt upgrade -y && apt clean && rm -rf /var/lib/apt/lists/*
+# Debian 기반
+RUN apt update && apt upgrade -y && apt install -y python3 python3-pip && \
+    pip3 install pandas scikit-learn xgboost tensorflow && \
+    apt clean && rm -rf /var/lib/apt/lists/*
 
-RUN apt install -y python3
-RUN apt install -y pip3
-
-RUN pip install -y pandas
-RUN pip install -y scikit-learn
-RUN pip install -y xgboost
-RUN pip install -y tensorflow
 
 # 작업 디렉토리 설정
 WORKDIR /app
