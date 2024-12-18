@@ -2,6 +2,7 @@ package com.ohlottery.service;
 
 import com.ohlottery.dto.Lottery645Dto;
 import com.ohlottery.dto.Lottery720Dto;
+import com.ohlottery.dto.LotteryStoreWinCountDto;
 import com.ohlottery.entity.Lottery645Entity;
 import com.ohlottery.entity.Lottery720Entity;
 import com.ohlottery.repository.Lottery645Repository;
@@ -9,11 +10,12 @@ import com.ohlottery.repository.Lottery720Repository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class LotteryAIService {
+public class LotteryService {
 
     private final Lottery645Repository lottery645Repository;
     private final Lottery720Repository lottery720Repository;
@@ -42,4 +44,11 @@ public class LotteryAIService {
         return null;
     }
 
+    public List<LotteryStoreWinCountDto> computeStore645WinCountList(int minWinCount) {
+        return lottery645Repository.findAllWinCount(minWinCount);
+    }
+
+    public List<LotteryStoreWinCountDto> computeStore720WinCountList(int minWinCount) {
+        return lottery720Repository.findAllWinCount(minWinCount);
+    }
 }

@@ -2,9 +2,10 @@ package com.ohlottery.controller;
 
 import com.ohlottery.dto.Lottery720Dto;
 import com.ohlottery.dto.LotteryStoreDto;
+import com.ohlottery.dto.LotteryStoreWinCountDto;
 import com.ohlottery.entity.Lottery720Entity;
 import com.ohlottery.entity.LotteryStoreEntity;
-import com.ohlottery.service.LotteryAIService;
+import com.ohlottery.service.LotteryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -30,7 +31,7 @@ import java.util.Optional;
 @Tag(name = "Lottery 720 Controller", description = "연금복권 당첨 정보 API")
 public class Lottery720Controller {
 
-    private final LotteryAIService lotteryAIService;
+    private final LotteryService lotteryService;
 
     @Operation(summary = "연금복권 데이터 조회", description = "해당 회차 연금복권 당첨 정보를 데이터베이스에서 조회")
     @ApiResponses(value ={
@@ -52,7 +53,7 @@ public class Lottery720Controller {
         }
 
         Optional<Lottery720Entity> roundResult
-                = lotteryAIService.getLottery720Result(requestRound);
+                = lotteryService.getLottery720Result(requestRound);
 
         if (roundResult.isEmpty()) return ResponseEntity.notFound().build();
 
@@ -88,7 +89,7 @@ public class Lottery720Controller {
         }
 
         Optional<Lottery720Entity> roundResult
-                = lotteryAIService.getLottery720Result(requestRound);
+                = lotteryService.getLottery720Result(requestRound);
 
         if (roundResult.isEmpty()) return ResponseEntity.notFound().build();
         Lottery720Entity entity = roundResult.get();
@@ -104,6 +105,29 @@ public class Lottery720Controller {
                 }
         );
         return ResponseEntity.ok(storeList);
+    }
+
+    @GetMapping("/store/winCount/{minCount}")
+
+    @Operation(summary = "판매처, 연금복권 1등 당첨 빈도 수 조회", description = "판매처, 연금복권 1등 당첨자 배출 빈도 수를 내림차순 정렬해서 조회")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "데이터 조회 성공",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = LotteryStoreWinCountDto.class))),
+            @ApiResponse(responseCode = "400", description = "잘못된 인자 값", content = @Content()),
+            @ApiResponse(responseCode = "404", description = "해당 회차 당첨 정보가 없음", content = @Content())
+    })
+    public ResponseEntity<?> getStoreWinCount(
+            @Parameter(description = "필터링할 최소 배출 빈도 횟수", example = "1")
+            @PathVariable String minCount
+    ) {
+        try {
+            List<LotteryStoreWinCountDto> resultList = lotteryService.computeStore720WinCountList(
+                    Integer.parseInt(minCount)
+            );
+            return ResponseEntity.ok(resultList);
+        }catch (Exception ignored){
+            return ResponseEntity.badRequest().build();
+        }
     }
 
 }
