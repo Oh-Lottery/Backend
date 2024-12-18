@@ -181,7 +181,7 @@ class ProbabilityLotteryPredictor:
 
 def main():
     # Load data
-    df = pd.read_csv('oh-lottery_main.csv')
+    df = pd.read_csv('/app/ai/oh-lottery_main.csv')
     winning_numbers = df[['Number 1', 'Number 2', 'Number 3', 
                          'Number 4', 'Number 5', 'Number 6']].values
     

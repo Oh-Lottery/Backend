@@ -93,7 +93,7 @@ def build_and_evaluate_model(df, target_col):
     return np.expm1(log_prediction[0])
 
 # 메인 코드
-df = pd.read_csv('./oh-lottery_main.csv')
+df = pd.read_csv('/app/ai/oh-lottery_main.csv')
 
 # 1등, 2등, 3등 예측
 # features_1st = ['prev_1st_prize', 'rolling_3_prize_mean', 'rolling_5_prize_mean',
