@@ -2,6 +2,8 @@ package com.ohlottery.controller;
 
 import com.ohlottery.dto.Lottery645Dto;
 import com.ohlottery.dto.Lottery720Dto;
+import com.ohlottery.service.LotteryAINumberService;
+import com.ohlottery.service.LotteryAIPriceService;
 import com.ohlottery.service.LotteryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,13 +17,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/lottery/ai")
 public class LotteryAIController {
 
-    private final LotteryService lotteryService;
+    private final LotteryAIPriceService lotteryAIPriceService;
+    private final LotteryAINumberService lotteryAINumberService;
 
-    @GetMapping("/predict/645/{round}")
-    public ResponseEntity<Lottery645Dto> get645Predict(
-            @PathVariable long round
-    ) {
-        return null;
+    @GetMapping("/predict-price/645/{round}")
+    public ResponseEntity<String> getPrediction() {
+        try {
+            String predictionResult = lotteryAIPriceService.executePythonPredictionScript();
+            return ResponseEntity.ok(predictionResult);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Prediction error: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/predict-num/645/{round}")
+    public ResponseEntity<?> getLotteryPredictions() {
+        return ResponseEntity.ok(lotteryAINumberService.getAINumberResults().toString());
     }
 
     @GetMapping("/statistic/645")
