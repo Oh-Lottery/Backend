@@ -9,10 +9,13 @@ import java.io.InputStreamReader;
 @Service
 @RequiredArgsConstructor
 public class LotteryAIPriceService {
+
+    private final String scriptPath = getClass().getResource("/AI/lottery_prediction.py").getPath();
+
     public String executePythonPredictionScript() {
         try {
             // Python 스크립트 실행
-            ProcessBuilder processBuilder = new ProcessBuilder("python3", "/lottery_prediction.py");
+            ProcessBuilder processBuilder = new ProcessBuilder("python3", scriptPath);
             processBuilder.redirectErrorStream(true);
             Process process = processBuilder.start();
 
