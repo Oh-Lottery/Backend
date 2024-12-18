@@ -5,17 +5,19 @@ import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.net.URL;
 
 @Service
 @RequiredArgsConstructor
 public class LotteryAIPriceService {
 
-    private final String scriptPath = getClass().getResource("/AI/lottery_prediction.py").getPath();
+    private final URL scriptURL
+            = getClass().getClassLoader().getResource("ai/lottery_prediction.py");
 
     public String executePythonPredictionScript() {
         try {
             // Python 스크립트 실행
-            ProcessBuilder processBuilder = new ProcessBuilder("python3", scriptPath);
+            ProcessBuilder processBuilder = new ProcessBuilder("python3", scriptURL.getPath());
             processBuilder.redirectErrorStream(true);
             Process process = processBuilder.start();
 

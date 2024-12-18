@@ -6,14 +6,19 @@ import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.net.URL;
 
 @Service
 public class LotteryAINumberService {
+
+    private final URL scriptURL
+            = getClass().getClassLoader().getResource("ai/lottery_probability_predictor.py");
+
     public JsonNode getAINumberResults() {
         JsonNode aiNumberResults = null;
 
         try {
-            ProcessBuilder processBuilder = new ProcessBuilder("python3", "lottery_probability_predictor.py");
+            ProcessBuilder processBuilder = new ProcessBuilder("python3", scriptURL.getPath());
             Process process = processBuilder.start();
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
