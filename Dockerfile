@@ -24,8 +24,6 @@ RUN gradle build --no-daemon
 FROM openjdk:17.0.1-jdk-slim
 
 # debian 기반
-RUN apt update
-RUN apt upgrade
 RUN apt install python3
 RUN apt install pip3
 
