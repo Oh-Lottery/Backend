@@ -1,12 +1,14 @@
 package com.ohlottery.controller;
 
-import com.ohlottery.dto.Lottery645Dto;
-import com.ohlottery.dto.Lottery720Dto;
-import com.ohlottery.service.LotteryService;
+import com.ohlottery.service.LotteryAINumberService;
+import com.ohlottery.service.LotteryAIPriceService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,40 +17,36 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/lottery/ai")
 public class LotteryAIController {
 
-    private final LotteryService lotteryService;
+    private final LotteryAIPriceService lotteryAIPriceService;
+    private final LotteryAINumberService lotteryAINumberService;
 
-    @GetMapping("/predict/645/{round}")
-    public ResponseEntity<Lottery645Dto> get645Predict(
-            @PathVariable long round
-    ) {
-        return null;
+    @GetMapping("/predict/prize/645")
+
+    @Operation(summary = "6/45 로또 상금 예측", description = "다음 1등 상금 예측 결과 제공")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "데이터 조회 성공", content = @Content()),
+            @ApiResponse(responseCode = "400", description = "잘못된 인자 값", content = @Content()),
+            @ApiResponse(responseCode = "404", description = "해당 회차 당첨 정보가 없음", content = @Content())
+    })
+    public ResponseEntity<String> getPrediction() {
+        try {
+            String predictionResult = lotteryAIPriceService.executePythonPredictionScript();
+            return ResponseEntity.ok(predictionResult);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Prediction error: " + e.getMessage());
+        }
     }
 
-    @GetMapping("/statistic/645")
-    public ResponseEntity<?> get645Statistic() {
-        return ResponseEntity.ok(null);
-    }
+    @GetMapping("/predict/num/645")
 
-    @GetMapping("/trend/645")
-    public ResponseEntity<?> get645Trend() {
-        return ResponseEntity.ok(null);
-    }
-
-    @GetMapping("/predict/720/{round}")
-    public ResponseEntity<Lottery720Dto> get720Predict(
-            @PathVariable long round
-    ) {
-        return null;
-    }
-
-    @GetMapping("/statistic/720")
-    public ResponseEntity<?> get720Statistic() {
-        return ResponseEntity.ok(null);
-    }
-
-    @GetMapping("/trend/720")
-    public ResponseEntity<?> get720Trend() {
-        return ResponseEntity.ok(null);
+    @Operation(summary = "6/45 로또 번호 예측", description = "다음 1등 번호 예측 결과 제공")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "데이터 조회 성공", content = @Content()),
+            @ApiResponse(responseCode = "400", description = "잘못된 인자 값", content = @Content()),
+            @ApiResponse(responseCode = "404", description = "해당 회차 당첨 정보가 없음", content = @Content())
+    })
+    public ResponseEntity<?> getLotteryPredictions() {
+        return ResponseEntity.ok(lotteryAINumberService.getAINumberResults().toString());
     }
 
 }
