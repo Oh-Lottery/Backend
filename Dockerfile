@@ -1,18 +1,3 @@
-# OpenJDK 17 기반으로 빌드
-FROM openjdk:17.0.1-jdk-slim
-# 캐싱을 위해 미리 땡겨오기
-# debian 기반
-RUN apt update
-RUN apt upgrade
-RUN apt install python3
-RUN apt install pip3
-
-RUN pip install pandas
-RUN pip install scikit-learn
-RUN pip install xgboost
-RUN pip install tensorflow
-
-
 # 빌드 이미지로 OpenJDK 17 & Gradle을 지정
 FROM gradle:8.10.2-jdk17 AS build
 
@@ -35,7 +20,19 @@ COPY . /app
 # Gradle 빌드를 실행하여 JAR 파일 생성
 RUN gradle build --no-daemon
 
-# - JDK17 작업 시작 -
+# OpenJDK 17 기반으로 빌드
+FROM openjdk:17.0.1-jdk-slim
+
+# debian 기반
+RUN apt update
+RUN apt upgrade
+RUN apt install python3
+RUN apt install pip3
+
+RUN pip install pandas
+RUN pip install scikit-learn
+RUN pip install xgboost
+RUN pip install tensorflow
 
 # 작업 디렉토리 설정
 WORKDIR /app
