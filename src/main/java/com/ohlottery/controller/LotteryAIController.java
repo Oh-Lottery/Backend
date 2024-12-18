@@ -2,7 +2,7 @@ package com.ohlottery.controller;
 
 import com.ohlottery.dto.Lottery645Dto;
 import com.ohlottery.dto.Lottery720Dto;
-import com.ohlottery.service.LotteryAIService;
+import com.ohlottery.service.LotteryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/lottery/ai")
 public class LotteryAIController {
 
-    private final LotteryAIService lotteryAIService;
+    private final LotteryService lotteryService;
 
     @GetMapping("/predict/645/{round}")
     public ResponseEntity<Lottery645Dto> get645Predict(
